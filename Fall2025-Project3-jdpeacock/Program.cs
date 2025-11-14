@@ -1,17 +1,19 @@
-using Azure;
-using Azure.AI.OpenAI;
+using Fall2025_Project3_jdpeacock;
 using Fall2025_Project3_jdpeacock.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Configuration.AddUserSecrets<Program>();
+var connectionString = builder.Configuration["CONNECTION_STRING"];
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddSingleton<AIService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
