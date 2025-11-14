@@ -1,0 +1,54 @@
+﻿@model Fall2025_Project3_jdpeacock.Models.Actor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Actor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label">Name</label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gender" class="control-label">Gender</label>
+                <input asp-for="gender" class="form-control" />
+                <span asp-validation-for="gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="age" class="control-label">Age</label>
+                <input asp-for="age" class="form-control" />
+                <span asp-validation-for="age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="imdbLink" class="control-label">IMDB Link</label>
+                <input asp-for="imdbLink" class="form-control" />
+                <span asp-validation-for="imdbLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="photo" class="control-label">Photo</label>
+                <input type="file" id="Photo" name="Photo" class="form-control" asp-for="photo" />
+                <span asp-validation-for="photo" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-1">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

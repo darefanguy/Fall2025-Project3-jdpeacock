@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Fall2025_Project3_jdpeacock.Models.ViewModels.MovieInfoViewModel>
+
+@{
+    ViewData["Title"] = "List of Movies";
+}
+
+<h1>List of Movies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover" data-table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                IMDB Link
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Release Year
+            </th>
+            <th>
+                Poster
+            </th>
+            <th>
+                Actors
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Movie.title)
+            </td>
+            <td>
+                    <a href="@item.Movie.imdbLink">IMDB page</a>
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Movie.genre)
+            </td>   
+            <td>
+                    @Html.DisplayFor(modelItem => item.Movie.releaseYear)
+            </td>
+            <td>
+                    @if (item.Movie.poster != null)
+                {
+                        var base64 = Convert.ToBase64String(item.Movie.poster);
+                    var imgSrc = $"data:image/jpg;base64,{base64}";
+                    <img src="@imgSrc" width="100" />
+                }
+            </td>
+            <td>
+                @if (item.Actors.Any()) {
+                    @foreach (var actor in item.Actors)
+                    {
+                        <p>@actor.name</p>
+                    }
+                }
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Movie.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Movie.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Movie.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
